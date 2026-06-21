@@ -70,6 +70,7 @@ public struct AllOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Co
 /// Convenience constructors for conjunctive conditions.
 public extension ConditionKey {
     /// Creates a condition that succeeds only when both conditions succeed.
+    @inlinable
     static func allOf<First: Condition, Second: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>
@@ -78,6 +79,7 @@ public extension ConditionKey {
     }
 
     /// Creates a condition that succeeds only when all three conditions succeed.
+    @inlinable
     static func allOf<First: Condition, Second: Condition, Third: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>,
@@ -87,6 +89,7 @@ public extension ConditionKey {
     }
 
     /// Creates a condition that succeeds only when all four conditions succeed.
+    @inlinable
     static func allOf<First: Condition, Second: Condition, Third: Condition, Fourth: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>,

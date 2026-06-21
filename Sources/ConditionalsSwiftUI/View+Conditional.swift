@@ -6,6 +6,7 @@ import SwiftUI
 public extension View {
     /// Applies `then` when the condition is `true`; otherwise returns the original view.
     @ViewBuilder
+    @inlinable
     func conditional<C: Condition, Modified: View>(
         _ condition: ConditionKey<C>,
         @ViewBuilder then thenContent: @MainActor (Self) -> Modified
@@ -19,6 +20,7 @@ public extension View {
 
     /// Applies one of two transforms based on the condition.
     @ViewBuilder
+    @inlinable
     func conditional<C: Condition, Then: View, Else: View>(
         _ condition: ConditionKey<C>,
         @ViewBuilder then thenContent: @MainActor (Self) -> Then,

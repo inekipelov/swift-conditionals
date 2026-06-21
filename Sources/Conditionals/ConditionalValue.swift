@@ -4,6 +4,7 @@ public protocol ConditionalValue {}
 /// Conditional value helpers for types that can opt into availability-based selection.
 public extension ConditionalValue {
     /// Selects between two values using the supplied condition.
+    @inlinable
     static func value<C: Condition>(
         _ condition: ConditionKey<C>,
         _ thenValue: @autoclosure () -> Self,
@@ -16,6 +17,7 @@ public extension ConditionalValue {
     }
 
     /// Selects between two value-producing closures using the supplied condition.
+    @inlinable
     static func value<C: Condition>(
         _ condition: ConditionKey<C>,
         _ thenValue: () -> Self,

@@ -70,6 +70,7 @@ public struct AnyOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Co
 /// Convenience constructors for disjunctive conditions.
 public extension ConditionKey {
     /// Creates a condition that succeeds when either condition succeeds.
+    @inlinable
     static func anyOf<First: Condition, Second: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>
@@ -78,6 +79,7 @@ public extension ConditionKey {
     }
 
     /// Creates a condition that succeeds when any of three conditions succeeds.
+    @inlinable
     static func anyOf<First: Condition, Second: Condition, Third: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>,
@@ -87,6 +89,7 @@ public extension ConditionKey {
     }
 
     /// Creates a condition that succeeds when any of four conditions succeeds.
+    @inlinable
     static func anyOf<First: Condition, Second: Condition, Third: Condition, Fourth: Condition>(
         _ first: ConditionKey<First>,
         _ second: ConditionKey<Second>,

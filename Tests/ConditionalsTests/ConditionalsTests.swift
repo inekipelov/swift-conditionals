@@ -1,4 +1,5 @@
 import XCTest
+import SwiftUI
 @testable import Conditionals
 @testable import ConditionalsSwiftUI
 
@@ -43,6 +44,120 @@ final class ConditionalsTests: XCTestCase {
     func testConditionalValueSelectsElseBranchForFalseCondition() {
         let value = Int.value(ConditionKey<AlwaysFalse>(), 1, else: 2)
         XCTAssertEqual(value, 2)
+    }
+
+    func testSwiftUIValueTypesSelectThroughConditionalValue() {
+        let colorScheme = ColorScheme.value(ConditionKey<AlwaysTrue>(), .dark, else: .light)
+        let colorSchemeContrast = ColorSchemeContrast.value(ConditionKey<AlwaysTrue>(), .increased, else: .standard)
+        let legibility = LegibilityWeight.value(ConditionKey<AlwaysTrue>(), .bold, else: .regular)
+        let sizeClass = UserInterfaceSizeClass.value(ConditionKey<AlwaysTrue>(), .regular, else: .compact)
+        let layoutDirection = LayoutDirection.value(ConditionKey<AlwaysTrue>(), .rightToLeft, else: .leftToRight)
+        let scenePhase = ScenePhase.value(ConditionKey<AlwaysTrue>(), .active, else: .background)
+        let controlSize = ControlSize.value(ConditionKey<AlwaysTrue>(), .large, else: .mini)
+        let dynamicTypeSize = DynamicTypeSize.value(ConditionKey<AlwaysTrue>(), .xxxLarge, else: .small)
+        let symbolRenderingMode = SymbolRenderingMode.value(ConditionKey<AlwaysTrue>(), .palette, else: .monochrome)
+        let symbolVariants = SymbolVariants.value(ConditionKey<AlwaysTrue>(), .fill, else: .none)
+        let submitLabel = SubmitLabel.value(ConditionKey<AlwaysTrue>(), .done, else: .go)
+
+        XCTAssertNotNil(Optional(colorScheme))
+        XCTAssertNotNil(Optional(colorSchemeContrast))
+        XCTAssertNotNil(Optional(legibility))
+        XCTAssertNotNil(Optional(sizeClass))
+        XCTAssertNotNil(Optional(layoutDirection))
+        XCTAssertNotNil(Optional(scenePhase))
+        XCTAssertNotNil(Optional(controlSize))
+        XCTAssertNotNil(Optional(dynamicTypeSize))
+        XCTAssertNotNil(Optional(symbolRenderingMode))
+        XCTAssertNotNil(Optional(symbolVariants))
+        XCTAssertNotNil(Optional(submitLabel))
+    }
+
+    func testSwiftUIPlacementAndPresentationTypesSelectThroughConditionalValue() {
+        let toolbarPlacement = ToolbarItemPlacement.value(ConditionKey<AlwaysTrue>(), .automatic, else: .automatic)
+        let commandGroupPlacement = CommandGroupPlacement.value(ConditionKey<AlwaysTrue>(), .toolbar, else: .sidebar)
+        let toolbarRole = ToolbarRole.value(ConditionKey<AlwaysTrue>(), .automatic, else: .automatic)
+        let navigationVisibility = NavigationSplitViewVisibility.value(ConditionKey<AlwaysTrue>(), .all, else: .detailOnly)
+        let presentationDetent = PresentationDetent.value(ConditionKey<AlwaysTrue>(), .large, else: .medium)
+        let backgroundInteraction = PresentationBackgroundInteraction.value(ConditionKey<AlwaysTrue>(), .enabled, else: .disabled)
+
+        XCTAssertNotNil(Optional(toolbarPlacement))
+        XCTAssertNotNil(Optional(commandGroupPlacement))
+        XCTAssertNotNil(Optional(toolbarRole))
+        XCTAssertNotNil(Optional(navigationVisibility))
+        XCTAssertNotNil(Optional(presentationDetent))
+        XCTAssertNotNil(Optional(backgroundInteraction))
+    }
+
+    func testTabPlacementSelectsThroughConditionalValueWhenAvailable() {
+        if #available(macOS 15.0, *) {
+            let tabPlacement = TabPlacement.value(ConditionKey<AlwaysTrue>(), .pinned, else: .sidebarOnly)
+            XCTAssertNotNil(Optional(tabPlacement))
+        }
+    }
+
+    #if os(iOS) || os(tvOS) || os(visionOS) || targetEnvironment(macCatalyst)
+    func testEditModeSelectsThroughConditionalValueWhenAvailable() {
+        let editMode = EditMode.value(ConditionKey<AlwaysTrue>(), .active, else: .inactive)
+        XCTAssertNotNil(Optional(editMode))
+    }
+    #endif
+
+    @MainActor
+    func testToolbarContentConditionalCompiles() {
+        let toolbar = ToolbarItemGroup(placement: .automatic) {
+        }
+        .conditional(ConditionKey<AlwaysTrue>()) { content in
+            content
+        } else: { content in
+            content
+        }
+
+        XCTAssertNotNil(Optional(toolbar))
+    }
+
+    @MainActor
+    func testCommandsConditionalCompiles() {
+        let commands = CommandMenu("File") {
+        }
+        .conditional(ConditionKey<AlwaysTrue>()) { content in
+            content
+        } else: { content in
+            content
+        }
+
+        XCTAssertNotNil(Optional(commands))
+    }
+
+    @MainActor
+    func testSceneConditionalCompiles() {
+        let scene = WindowGroup {
+            Text("Content")
+        }
+        .conditional(ConditionKey<AlwaysTrue>()) { content in
+            content
+        } else: { content in
+            content
+        }
+
+        XCTAssertNotNil(Optional(scene))
+    }
+
+    @MainActor
+    func testTabContentConditionalCompilesWhenAvailable() {
+        if #available(macOS 15.0, *) {
+            let tab = TabSection {
+                Tab("One", systemImage: "1.circle", value: 1) {
+                    Text("One")
+                }
+            }
+            .conditional(ConditionKey<AlwaysTrue>()) { content in
+                content
+            } else: { content in
+                content
+            }
+
+            XCTAssertNotNil(Optional(tab))
+        }
     }
 
     func testWWDC25AliasExists() {
