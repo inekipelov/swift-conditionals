@@ -185,6 +185,13 @@ struct ConditionalsTests {
     }
 
     @Test func platformAliasesCompile() {
+        let ios: ConditionKey<iOS> = .iOS
+        let macOSPlatform: ConditionKey<macOS> = .macOS
+        let tvOSPlatform: ConditionKey<tvOS> = .tvOS
+        let watchOSPlatform: ConditionKey<watchOS> = .watchOS
+        let visionOSPlatform: ConditionKey<visionOS> = .visionOS
+        let iPhonePlatform: ConditionKey<iPhone> = .iPhone
+        let iPadPlatform: ConditionKey<iPad> = .iPad
         let ios13: ConditionKey<iOS13> = .iOS13
         let mac10_15: ConditionKey<macOS10_15> = .macOS10_15
         let tv13: ConditionKey<TVOS13> = .tvOS13
@@ -227,6 +234,13 @@ struct ConditionalsTests {
         let watch27: ConditionKey<WatchOS27> = .watchOS27
         let vision27: ConditionKey<VisionOS27> = .visionOS27
 
+        _ = ios
+        _ = macOSPlatform
+        _ = tvOSPlatform
+        _ = watchOSPlatform
+        _ = visionOSPlatform
+        _ = iPhonePlatform
+        _ = iPadPlatform
         _ = ios13
         _ = mac10_15
         _ = tv13
