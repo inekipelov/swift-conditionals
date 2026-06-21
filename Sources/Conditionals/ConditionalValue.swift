@@ -2,7 +2,7 @@ public protocol ConditionalValue {}
 
 public extension ConditionalValue {
     static func value<C: Condition>(
-        _ condition: Case<C>,
+        _ condition: ConditionKey<C>,
         _ value: @autoclosure () -> Self,
         else fallback: @autoclosure () -> Self
     ) -> Self {
@@ -13,7 +13,7 @@ public extension ConditionalValue {
     }
 
     static func value<C: Condition>(
-        _ condition: Case<C>,
+        _ condition: ConditionKey<C>,
         then value: () -> Self,
         else fallback: () -> Self
     ) -> Self {

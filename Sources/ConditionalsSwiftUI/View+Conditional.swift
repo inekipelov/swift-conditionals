@@ -5,7 +5,7 @@ import Conditionals
 public extension View {
     @ViewBuilder
     func conditional<C: Condition, Modified: View>(
-        _ condition: Case<C>,
+        _ condition: ConditionKey<C>,
         @ViewBuilder then transform: @MainActor (Self) -> Modified
     ) -> some View {
         if condition.isTrue {
@@ -17,7 +17,7 @@ public extension View {
 
     @ViewBuilder
     func conditional<C: Condition, Then: View, Else: View>(
-        _ condition: Case<C>,
+        _ condition: ConditionKey<C>,
         @ViewBuilder then thenTransform: @MainActor (Self) -> Then,
         @ViewBuilder else elseTransform: @MainActor (Self) -> Else
     ) -> some View {

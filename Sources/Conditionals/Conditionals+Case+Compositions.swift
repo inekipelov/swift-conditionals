@@ -1,55 +1,55 @@
-public extension Case {
-    static func not<C: Condition>(
-        _ condition: Case<C>
-    ) -> Case<Not<C>> {
-        Case<Not<C>>()
+public extension ConditionKey {
+    static func not<Wrapped: Condition>(
+        _ condition: ConditionKey<Wrapped>
+    ) -> ConditionKey<Not<Wrapped>> {
+        ConditionKey<Not<Wrapped>>()
     }
 
-    static func anyOf<A: Condition, B: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>
-    ) -> Case<AnyOf<A, B>> {
-        Case<AnyOf<A, B>>()
+    static func anyOf<First: Condition, Second: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>
+    ) -> ConditionKey<AnyOf<First, Second>> {
+        ConditionKey<AnyOf<First, Second>>()
     }
 
-    static func anyOf<A: Condition, B: Condition, C: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>,
-        _ third: Case<C>
-    ) -> Case<AnyOf3<A, B, C>> {
-        Case<AnyOf3<A, B, C>>()
+    static func anyOf<First: Condition, Second: Condition, Third: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>,
+        _ third: ConditionKey<Third>
+    ) -> ConditionKey<AnyOf3<First, Second, Third>> {
+        ConditionKey<AnyOf3<First, Second, Third>>()
     }
 
-    static func anyOf<A: Condition, B: Condition, C: Condition, D: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>,
-        _ third: Case<C>,
-        _ fourth: Case<D>
-    ) -> Case<AnyOf4<A, B, C, D>> {
-        Case<AnyOf4<A, B, C, D>>()
+    static func anyOf<First: Condition, Second: Condition, Third: Condition, Fourth: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>,
+        _ third: ConditionKey<Third>,
+        _ fourth: ConditionKey<Fourth>
+    ) -> ConditionKey<AnyOf4<First, Second, Third, Fourth>> {
+        ConditionKey<AnyOf4<First, Second, Third, Fourth>>()
     }
 
-    static func allOf<A: Condition, B: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>
-    ) -> Case<AllOf<A, B>> {
-        Case<AllOf<A, B>>()
+    static func allOf<First: Condition, Second: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>
+    ) -> ConditionKey<AllOf<First, Second>> {
+        ConditionKey<AllOf<First, Second>>()
     }
 
-    static func allOf<A: Condition, B: Condition, C: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>,
-        _ third: Case<C>
-    ) -> Case<AllOf3<A, B, C>> {
-        Case<AllOf3<A, B, C>>()
+    static func allOf<First: Condition, Second: Condition, Third: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>,
+        _ third: ConditionKey<Third>
+    ) -> ConditionKey<AllOf3<First, Second, Third>> {
+        ConditionKey<AllOf3<First, Second, Third>>()
     }
 
-    static func allOf<A: Condition, B: Condition, C: Condition, D: Condition>(
-        _ lhs: Case<A>,
-        _ rhs: Case<B>,
-        _ third: Case<C>,
-        _ fourth: Case<D>
-    ) -> Case<AllOf4<A, B, C, D>> {
-        Case<AllOf4<A, B, C, D>>()
+    static func allOf<First: Condition, Second: Condition, Third: Condition, Fourth: Condition>(
+        _ lhs: ConditionKey<First>,
+        _ rhs: ConditionKey<Second>,
+        _ third: ConditionKey<Third>,
+        _ fourth: ConditionKey<Fourth>
+    ) -> ConditionKey<AllOf4<First, Second, Third, Fourth>> {
+        ConditionKey<AllOf4<First, Second, Third, Fourth>>()
     }
 }

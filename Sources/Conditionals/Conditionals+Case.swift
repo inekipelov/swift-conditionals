@@ -1,4 +1,4 @@
-public struct Case<C: Condition>: Sendable {
+public struct ConditionKey<C: Condition>: Sendable {
     public init() {}
 
     public var isTrue: Bool {
