@@ -96,6 +96,7 @@ struct ConditionalsTests {
         let commandGroupPlacement = CommandGroupPlacement.value(ConditionKey<AlwaysTrue>(), .toolbar, else: .sidebar)
         let toolbarRole = ToolbarRole.value(ConditionKey<AlwaysTrue>(), .automatic, else: .automatic)
         let navigationVisibility = NavigationSplitViewVisibility.value(ConditionKey<AlwaysTrue>(), .all, else: .detailOnly)
+        let visibility = Visibility.value(ConditionKey<AlwaysTrue>(), .visible, else: .hidden)
         let presentationDetent = PresentationDetent.value(ConditionKey<AlwaysTrue>(), .large, else: .medium)
         let backgroundInteraction = PresentationBackgroundInteraction.value(ConditionKey<AlwaysTrue>(), .enabled, else: .disabled)
 
@@ -103,6 +104,7 @@ struct ConditionalsTests {
         _ = commandGroupPlacement
         _ = toolbarRole
         _ = navigationVisibility
+        _ = visibility
         _ = presentationDetent
         _ = backgroundInteraction
     }

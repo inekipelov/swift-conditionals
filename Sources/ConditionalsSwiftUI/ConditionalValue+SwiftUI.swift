@@ -46,6 +46,9 @@ extension ToolbarRole: ConditionalValue {}
 @available(iOS 16.0, macCatalyst 16.0, macOS 13.0, tvOS 16.0, visionOS 1.0, watchOS 9.0, *)
 extension NavigationSplitViewVisibility: ConditionalValue {}
 
+@available(iOS 17.0, macCatalyst 17.0, macOS 14.0, tvOS 17.0, visionOS 1.0, watchOS 10.0, *)
+extension Visibility: ConditionalValue {}
+
 @available(iOS 16.0, macCatalyst 16.0, macOS 13.0, tvOS 16.0, visionOS 1.0, watchOS 9.0, *)
 extension PresentationDetent: ConditionalValue {}
 
