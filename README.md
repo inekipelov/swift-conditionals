@@ -1,6 +1,10 @@
 # swift-conditionals
 A strongly typed conditional pattern for Swift values and SwiftUI views.
 
+## Minimum Supported Swift
+
+This package targets Swift 6.
+
 ## Limitation
 
 `Conditionals` selects between branches, but it does not replace lexical `if #available` when a branch uses SDK-only symbols that the compiler must see inside an availability boundary.
