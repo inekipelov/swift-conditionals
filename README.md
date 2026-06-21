@@ -21,16 +21,9 @@ Button {
     // action
 } label: {
     Label("Continue", systemImage: "arrow.right")
-        .conditional(.iOS18) {
+        .conditional(.not(.wwdc25)) {
             $0.frame(maxWidth: .infinity, alignment: .leading)
-        } else: {
-            $0
         }
-}
-.conditional(.not(.iOS26)) {
-    $0.buttonStyle(.borderedProminent)
-} else: {
-    $0
 }
 ```
 
