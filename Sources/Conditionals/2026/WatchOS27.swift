@@ -1,4 +1,6 @@
+/// Availability gate for watchOS 27 and later.
 public struct WatchOS27: Condition {
+    /// Evaluates whether watchOS 27 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct WatchOS27: Condition {
     }
 }
 
+/// A key for the watchOS 27 availability check.
 public extension ConditionKey where C == WatchOS27 {
     static var watchOS27: Self { Self() }
 }

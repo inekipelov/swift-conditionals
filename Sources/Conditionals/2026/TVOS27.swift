@@ -1,4 +1,6 @@
+/// Availability gate for tvOS 27 and later.
 public struct TVOS27: Condition {
+    /// Evaluates whether tvOS 27 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct TVOS27: Condition {
     }
 }
 
+/// A key for the tvOS 27 availability check.
 public extension ConditionKey where C == TVOS27 {
     static var tvOS27: Self { Self() }
 }

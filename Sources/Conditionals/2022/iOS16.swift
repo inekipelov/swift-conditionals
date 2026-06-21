@@ -1,4 +1,6 @@
+/// Availability gate for iOS 16 and later.
 public struct iOS16: Condition {
+    /// Evaluates whether iOS 16 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct iOS16: Condition {
     }
 }
 
+/// A key for the iOS 16 availability check.
 public extension ConditionKey where C == iOS16 {
     static var iOS16: Self { Self() }
 }

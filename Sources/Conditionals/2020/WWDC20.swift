@@ -1,4 +1,6 @@
+/// Availability gate for the 2020 WWDC SDK baseline.
 public struct WWDC20: Condition {
+    /// Evaluates whether the 2020 baseline is available.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -11,6 +13,7 @@ public struct WWDC20: Condition {
     }
 }
 
+/// A key for the 2020 WWDC availability check.
 public extension ConditionKey where C == WWDC20 {
     static var wwdc20: Self { Self() }
 }

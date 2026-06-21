@@ -1,4 +1,6 @@
+/// Availability gate for iOS 18 and later.
 public struct iOS18: Condition {
+    /// Evaluates whether iOS 18 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct iOS18: Condition {
     }
 }
 
+/// A key for the iOS 18 availability check.
 public extension ConditionKey where C == iOS18 {
     static var iOS18: Self { Self() }
 }

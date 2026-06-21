@@ -1,4 +1,6 @@
+/// Availability gate for macOS 15 and later.
 public struct macOS15: Condition {
+    /// Evaluates whether macOS 15 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct macOS15: Condition {
     }
 }
 
+/// A key for the macOS 15 availability check.
 public extension ConditionKey where C == macOS15 {
     static var macOS15: Self { Self() }
 }

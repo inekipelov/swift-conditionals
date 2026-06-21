@@ -1,4 +1,6 @@
+/// Availability gate for watchOS 11 and later.
 public struct WatchOS11: Condition {
+    /// Evaluates whether watchOS 11 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct WatchOS11: Condition {
     }
 }
 
+/// A key for the watchOS 11 availability check.
 public extension ConditionKey where C == WatchOS11 {
     static var watchOS11: Self { Self() }
 }

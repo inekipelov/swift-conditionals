@@ -1,4 +1,6 @@
+/// A condition that succeeds only when both conditions succeed.
 public struct AllOf<A: Condition, B: Condition>: Condition {
+    /// Evaluates the wrapped conditions in order and requires both to succeed.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,7 +17,9 @@ public struct AllOf<A: Condition, B: Condition>: Condition {
     }
 }
 
+/// A condition that succeeds only when all three conditions succeed.
 public struct AllOf3<A: Condition, B: Condition, C: Condition>: Condition {
+    /// Evaluates the wrapped conditions in order and requires all to succeed.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -36,7 +40,9 @@ public struct AllOf3<A: Condition, B: Condition, C: Condition>: Condition {
     }
 }
 
+/// A condition that succeeds only when all four conditions succeed.
 public struct AllOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Condition {
+    /// Evaluates the wrapped conditions in order and requires all to succeed.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -61,7 +67,9 @@ public struct AllOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Co
     }
 }
 
+/// Convenience constructors for conjunctive conditions.
 public extension ConditionKey {
+    /// Creates a condition that succeeds only when both conditions succeed.
     static func allOf<First: Condition, Second: Condition>(
         _ lhs: ConditionKey<First>,
         _ rhs: ConditionKey<Second>
@@ -69,6 +77,7 @@ public extension ConditionKey {
         ConditionKey<AllOf<First, Second>>()
     }
 
+    /// Creates a condition that succeeds only when all three conditions succeed.
     static func allOf<First: Condition, Second: Condition, Third: Condition>(
         _ lhs: ConditionKey<First>,
         _ rhs: ConditionKey<Second>,
@@ -77,6 +86,7 @@ public extension ConditionKey {
         ConditionKey<AllOf3<First, Second, Third>>()
     }
 
+    /// Creates a condition that succeeds only when all four conditions succeed.
     static func allOf<First: Condition, Second: Condition, Third: Condition, Fourth: Condition>(
         _ lhs: ConditionKey<First>,
         _ rhs: ConditionKey<Second>,

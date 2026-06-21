@@ -1,4 +1,6 @@
+/// Availability gate for iOS 15 and later.
 public struct iOS15: Condition {
+    /// Evaluates whether iOS 15 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct iOS15: Condition {
     }
 }
 
+/// A key for the iOS 15 availability check.
 public extension ConditionKey where C == iOS15 {
     static var iOS15: Self { Self() }
 }

@@ -1,4 +1,6 @@
+/// Availability gate for macOS 13 and later.
 public struct macOS13: Condition {
+    /// Evaluates whether macOS 13 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct macOS13: Condition {
     }
 }
 
+/// A key for the macOS 13 availability check.
 public extension ConditionKey where C == macOS13 {
     static var macOS13: Self { Self() }
 }

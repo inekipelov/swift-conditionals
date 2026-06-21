@@ -4,35 +4,35 @@ import XCTest
 
 final class ConditionalsTests: XCTestCase {
     func testCaseIsTrueWithAlwaysTrueCondition() {
-        XCTAssertTrue(ConditionKey<AlwaysTrue>().isTrue)
+        XCTAssertTrue(ConditionKey<AlwaysTrue>().isSatisfied)
     }
 
     func testCaseIsTrueWithAlwaysFalseCondition() {
-        XCTAssertFalse(ConditionKey<AlwaysFalse>().isTrue)
+        XCTAssertFalse(ConditionKey<AlwaysFalse>().isSatisfied)
     }
 
     func testNotAlwaysTrueIsFalse() {
-        XCTAssertFalse(ConditionKey<Not<AlwaysTrue>>().isTrue)
+        XCTAssertFalse(ConditionKey<Not<AlwaysTrue>>().isSatisfied)
     }
 
     func testNotAlwaysFalseIsTrue() {
-        XCTAssertTrue(ConditionKey<Not<AlwaysFalse>>().isTrue)
+        XCTAssertTrue(ConditionKey<Not<AlwaysFalse>>().isSatisfied)
     }
 
     func testAnyOfAlwaysFalseAndAlwaysTrueIsTrue() {
-        XCTAssertTrue(ConditionKey<AnyOf<AlwaysFalse, AlwaysTrue>>().isTrue)
+        XCTAssertTrue(ConditionKey<AnyOf<AlwaysFalse, AlwaysTrue>>().isSatisfied)
     }
 
     func testAnyOfAlwaysFalseAndAlwaysFalseIsFalse() {
-        XCTAssertFalse(ConditionKey<AnyOf<AlwaysFalse, AlwaysFalse>>().isTrue)
+        XCTAssertFalse(ConditionKey<AnyOf<AlwaysFalse, AlwaysFalse>>().isSatisfied)
     }
 
     func testAllOfAlwaysTrueAndAlwaysTrueIsTrue() {
-        XCTAssertTrue(ConditionKey<AllOf<AlwaysTrue, AlwaysTrue>>().isTrue)
+        XCTAssertTrue(ConditionKey<AllOf<AlwaysTrue, AlwaysTrue>>().isSatisfied)
     }
 
     func testAllOfAlwaysTrueAndAlwaysFalseIsFalse() {
-        XCTAssertFalse(ConditionKey<AllOf<AlwaysTrue, AlwaysFalse>>().isTrue)
+        XCTAssertFalse(ConditionKey<AllOf<AlwaysTrue, AlwaysFalse>>().isSatisfied)
     }
 
     func testConditionalValueSelectsThenBranchForTrueCondition() {

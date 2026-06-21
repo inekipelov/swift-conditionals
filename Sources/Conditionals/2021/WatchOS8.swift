@@ -1,4 +1,6 @@
+/// Availability gate for watchOS 8 and later.
 public struct WatchOS8: Condition {
+    /// Evaluates whether watchOS 8 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct WatchOS8: Condition {
     }
 }
 
+/// A key for the watchOS 8 availability check.
 public extension ConditionKey where C == WatchOS8 {
     static var watchOS8: Self { Self() }
 }

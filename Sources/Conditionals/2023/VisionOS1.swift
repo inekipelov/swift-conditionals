@@ -1,4 +1,6 @@
+/// Availability gate for visionOS 1 and later.
 public struct VisionOS1: Condition {
+    /// Evaluates whether visionOS 1 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct VisionOS1: Condition {
     }
 }
 
+/// A key for the visionOS 1 availability check.
 public extension ConditionKey where C == VisionOS1 {
     static var visionOS1: Self { Self() }
 }

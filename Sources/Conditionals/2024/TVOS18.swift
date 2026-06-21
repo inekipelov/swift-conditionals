@@ -1,4 +1,6 @@
+/// Availability gate for tvOS 18 and later.
 public struct TVOS18: Condition {
+    /// Evaluates whether tvOS 18 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct TVOS18: Condition {
     }
 }
 
+/// A key for the tvOS 18 availability check.
 public extension ConditionKey where C == TVOS18 {
     static var tvOS18: Self { Self() }
 }

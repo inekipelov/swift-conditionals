@@ -1,4 +1,6 @@
+/// Availability gate for the 2025 WWDC SDK baseline.
 public struct WWDC25: Condition {
+    /// Evaluates whether the 2025 baseline is available.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -11,6 +13,7 @@ public struct WWDC25: Condition {
     }
 }
 
+/// A key for the 2025 WWDC availability check.
 public extension ConditionKey where C == WWDC25 {
     static var wwdc25: Self { Self() }
 }

@@ -1,4 +1,6 @@
+/// Availability gate for tvOS 13 and later.
 public struct TVOS13: Condition {
+    /// Evaluates whether tvOS 13 or newer is available on the current platform.
     public static func perform<Value>(
         then: () -> Value,
         else: () -> Value
@@ -15,6 +17,7 @@ public struct TVOS13: Condition {
     }
 }
 
+/// A key for the tvOS 13 availability check.
 public extension ConditionKey where C == TVOS13 {
     static var tvOS13: Self { Self() }
 }
