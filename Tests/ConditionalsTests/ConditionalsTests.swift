@@ -189,6 +189,8 @@ struct ConditionalsTests {
         let mac10_15: ConditionKey<macOS10_15> = .macOS10_15
         let tv13: ConditionKey<TVOS13> = .tvOS13
         let watch6: ConditionKey<WatchOS6> = .watchOS6
+        let linux: ConditionKey<Linux> = .linux
+        let windows: ConditionKey<Windows> = .windows
         let ios14: ConditionKey<iOS14> = .iOS14
         let mac11: ConditionKey<macOS11> = .macOS11
         let tv14: ConditionKey<TVOS14> = .tvOS14
@@ -229,6 +231,8 @@ struct ConditionalsTests {
         _ = mac10_15
         _ = tv13
         _ = watch6
+        _ = linux
+        _ = windows
         _ = ios14
         _ = mac11
         _ = tv14

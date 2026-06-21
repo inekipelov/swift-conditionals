@@ -15,22 +15,23 @@ and branch selection for Swift values and SwiftUI views.
 ## Usage
 
 ```swift
-import Conditionals
-
-let condition = ConditionKey.anyOf(.wwdc25, .wwdc26)
-let title = String.value(.not(condition), "Legacy", else: "Modern")
-let enabled = ConditionKey.allOf(.iOS18, .macOS15).isSatisfied
-```
-
-```swift
 import ConditionalsSwiftUI
 
-content
-    .conditional(.wwdc25) {
-        $0.frame(maxWidth: .infinity)
-    } else: {
-        $0.padding()
-    }
+Button {
+    // action
+} label: {
+    Label("Continue", systemImage: "arrow.right")
+        .conditional(.iOS18) {
+            $0.frame(maxWidth: .infinity, alignment: .leading)
+        } else: {
+            $0
+        }
+}
+.conditional(.not(.iOS26)) {
+    $0.buttonStyle(.borderedProminent)
+} else: {
+    $0
+}
 ```
 
 ## Installation
