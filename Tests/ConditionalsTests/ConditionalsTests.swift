@@ -4,49 +4,49 @@ import XCTest
 
 final class ConditionalsTests: XCTestCase {
     func testCaseIsTrueWithAlwaysTrueCondition() {
-        XCTAssertTrue(Conditionals.Case<AlwaysTrue>().isTrue)
+        XCTAssertTrue(Case<AlwaysTrue>().isTrue)
     }
 
     func testCaseIsTrueWithAlwaysFalseCondition() {
-        XCTAssertFalse(Conditionals.Case<AlwaysFalse>().isTrue)
+        XCTAssertFalse(Case<AlwaysFalse>().isTrue)
     }
 
     func testNotAlwaysTrueIsFalse() {
-        XCTAssertFalse(Conditionals.Case<Conditionals.Not<AlwaysTrue>>().isTrue)
+        XCTAssertFalse(Case<Not<AlwaysTrue>>().isTrue)
     }
 
     func testNotAlwaysFalseIsTrue() {
-        XCTAssertTrue(Conditionals.Case<Conditionals.Not<AlwaysFalse>>().isTrue)
+        XCTAssertTrue(Case<Not<AlwaysFalse>>().isTrue)
     }
 
     func testAnyOfAlwaysFalseAndAlwaysTrueIsTrue() {
-        XCTAssertTrue(Conditionals.Case<Conditionals.AnyOf<AlwaysFalse, AlwaysTrue>>().isTrue)
+        XCTAssertTrue(Case<AnyOf<AlwaysFalse, AlwaysTrue>>().isTrue)
     }
 
     func testAnyOfAlwaysFalseAndAlwaysFalseIsFalse() {
-        XCTAssertFalse(Conditionals.Case<Conditionals.AnyOf<AlwaysFalse, AlwaysFalse>>().isTrue)
+        XCTAssertFalse(Case<AnyOf<AlwaysFalse, AlwaysFalse>>().isTrue)
     }
 
     func testAllOfAlwaysTrueAndAlwaysTrueIsTrue() {
-        XCTAssertTrue(Conditionals.Case<Conditionals.AllOf<AlwaysTrue, AlwaysTrue>>().isTrue)
+        XCTAssertTrue(Case<AllOf<AlwaysTrue, AlwaysTrue>>().isTrue)
     }
 
     func testAllOfAlwaysTrueAndAlwaysFalseIsFalse() {
-        XCTAssertFalse(Conditionals.Case<Conditionals.AllOf<AlwaysTrue, AlwaysFalse>>().isTrue)
+        XCTAssertFalse(Case<AllOf<AlwaysTrue, AlwaysFalse>>().isTrue)
     }
 
     func testConditionalValueSelectsThenBranchForTrueCondition() {
-        let value = Int.value(Conditionals.Case<AlwaysTrue>(), 1, else: 2)
+        let value = Int.value(Case<AlwaysTrue>(), 1, else: 2)
         XCTAssertEqual(value, 1)
     }
 
     func testConditionalValueSelectsElseBranchForFalseCondition() {
-        let value = Int.value(Conditionals.Case<AlwaysFalse>(), 1, else: 2)
+        let value = Int.value(Case<AlwaysFalse>(), 1, else: 2)
         XCTAssertEqual(value, 2)
     }
 
     func testWWDC25AliasExists() {
-        let alias: Conditionals.Case<Conditionals.WWDC25> = .wwdc25
+        let alias: Case<WWDC25> = .wwdc25
         XCTAssertNotNil(Optional(alias))
     }
 

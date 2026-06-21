@@ -1,25 +1,44 @@
-public extension Conditionals {
-    struct Not<C: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            C.perform(
-                then: `else`,
-                else: then
-            )
-        }
+public struct Not<C: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        C.perform(
+            then: `else`,
+            else: then
+        )
     }
+}
 
-    struct AnyOf<A: Condition, B: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
+public struct AnyOf<A: Condition, B: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            then()
+        } else: {
+            B.perform {
                 then()
             } else: {
-                B.perform {
+                `else`()
+            }
+        }
+    }
+}
+
+public struct AnyOf3<A: Condition, B: Condition, C: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            then()
+        } else: {
+            B.perform {
+                then()
+            } else: {
+                C.perform {
                     then()
                 } else: {
                     `else`()
@@ -27,19 +46,23 @@ public extension Conditionals {
             }
         }
     }
+}
 
-    struct AnyOf3<A: Condition, B: Condition, C: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
+public struct AnyOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            then()
+        } else: {
+            B.perform {
                 then()
             } else: {
-                B.perform {
+                C.perform {
                     then()
                 } else: {
-                    C.perform {
+                    D.perform {
                         then()
                     } else: {
                         `else`()
@@ -48,39 +71,33 @@ public extension Conditionals {
             }
         }
     }
+}
 
-    struct AnyOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
+public struct AllOf<A: Condition, B: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            B.perform {
                 then()
             } else: {
-                B.perform {
-                    then()
-                } else: {
-                    C.perform {
-                        then()
-                    } else: {
-                        D.perform {
-                            then()
-                        } else: {
-                            `else`()
-                        }
-                    }
-                }
+                `else`()
             }
+        } else: {
+            `else`()
         }
     }
+}
 
-    struct AllOf<A: Condition, B: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
-                B.perform {
+public struct AllOf3<A: Condition, B: Condition, C: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            B.perform {
+                C.perform {
                     then()
                 } else: {
                     `else`()
@@ -88,43 +105,22 @@ public extension Conditionals {
             } else: {
                 `else`()
             }
+        } else: {
+            `else`()
         }
     }
+}
 
-    struct AllOf3<A: Condition, B: Condition, C: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
-                B.perform {
-                    C.perform {
+public struct AllOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Condition {
+    public static func perform<Value>(
+        then: () -> Value,
+        else: () -> Value
+    ) -> Value {
+        A.perform {
+            B.perform {
+                C.perform {
+                    D.perform {
                         then()
-                    } else: {
-                        `else`()
-                    }
-                } else: {
-                    `else`()
-                }
-            } else: {
-                `else`()
-            }
-        }
-    }
-
-    struct AllOf4<A: Condition, B: Condition, C: Condition, D: Condition>: Condition {
-        public static func perform<Value>(
-            then: () -> Value,
-            else: () -> Value
-        ) -> Value {
-            A.perform {
-                B.perform {
-                    C.perform {
-                        D.perform {
-                            then()
-                        } else: {
-                            `else`()
-                        }
                     } else: {
                         `else`()
                     }
@@ -134,6 +130,8 @@ public extension Conditionals {
             } else: {
                 `else`()
             }
+        } else: {
+            `else`()
         }
     }
 }
