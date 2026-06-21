@@ -285,4 +285,40 @@ struct ConditionalsTests {
         _ = watch27
         _ = vision27
     }
+
+    @Test func extensionAliasesCompile() {
+        let appExtension: ConditionKey<AppExtension> = .appExtension
+        let keyboardExtension: ConditionKey<ExtensionPoint<KeyboardExtensionPoint>> = .keyboard
+        let shareExtension: ConditionKey<ExtensionPoint<ShareExtensionPoint>> = .share
+        let widgetExtension: ConditionKey<ExtensionPoint<WidgetExtensionPoint>> = .widget
+        let messageExtension: ConditionKey<ExtensionPoint<iMessageExtensionPoint>> = .iMessage
+        let intentsExtension: ConditionKey<ExtensionPoint<IntentsExtensionPoint>> = .intents
+        let intentsUIExtension: ConditionKey<ExtensionPoint<IntentsUIExtensionPoint>> = .intentsUI
+        let appIntentsExtension: ConditionKey<ExtensionPoint<AppIntentsExtensionPoint>> = .appIntents
+        let fileProviderExtension: ConditionKey<ExtensionPoint<FileProviderExtensionPoint>> = .fileProvider
+        let fileProviderUIExtension: ConditionKey<ExtensionPoint<FileProviderUIExtensionPoint>> = .fileProviderUI
+        let actionExtension: ConditionKey<ExtensionPoint<ActionExtensionPoint>> = .action
+        let photoEditingExtension: ConditionKey<ExtensionPoint<PhotoEditingExtensionPoint>> = .photoEditing
+        let photoProjectExtension: ConditionKey<ExtensionPoint<PhotoProjectExtensionPoint>> = .photoProject
+        let finderSyncExtension: ConditionKey<ExtensionPoint<FinderSyncExtensionPoint>> = .finderSync
+        let safariExtension: ConditionKey<ExtensionPoint<SafariExtensionPoint>> = .safari
+        let messageFilterExtension: ConditionKey<ExtensionPoint<MessageFilterExtensionPoint>> = .messageFilter
+
+        #expect(!appExtension.isSatisfied)
+        _ = keyboardExtension
+        _ = shareExtension
+        _ = widgetExtension
+        _ = messageExtension
+        _ = intentsExtension
+        _ = intentsUIExtension
+        _ = appIntentsExtension
+        _ = fileProviderExtension
+        _ = fileProviderUIExtension
+        _ = actionExtension
+        _ = photoEditingExtension
+        _ = photoProjectExtension
+        _ = finderSyncExtension
+        _ = safariExtension
+        _ = messageFilterExtension
+    }
 }
