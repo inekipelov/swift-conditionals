@@ -2,7 +2,7 @@
 public struct WatchOS7: Condition {
     /// Evaluates whether watchOS 7 or newer is available on the current platform.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         #if os(watchOS)

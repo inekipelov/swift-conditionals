@@ -2,7 +2,7 @@
 public struct iOS17: Condition {
     /// Evaluates whether iOS 17 or newer is available on the current platform.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         #if os(iOS)

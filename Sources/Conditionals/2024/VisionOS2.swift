@@ -2,7 +2,7 @@
 public struct VisionOS2: Condition {
     /// Evaluates whether visionOS 2 or newer is available on the current platform.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         #if os(visionOS)

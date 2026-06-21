@@ -6,24 +6,24 @@ public extension ConditionalValue {
     /// Selects between two values using the supplied condition.
     static func value<C: Condition>(
         _ condition: ConditionKey<C>,
-        _ value: @autoclosure () -> Self,
-        else fallback: @autoclosure () -> Self
+        _ thenValue: @autoclosure () -> Self,
+        else elseValue: @autoclosure () -> Self
     ) -> Self {
         condition.value(
-            then: value(),
-            else: fallback()
+            then: thenValue(),
+            else: elseValue()
         )
     }
 
     /// Selects between two value-producing closures using the supplied condition.
     static func value<C: Condition>(
         _ condition: ConditionKey<C>,
-        then value: () -> Self,
-        else fallback: () -> Self
+        _ thenValue: () -> Self,
+        else elseValue: () -> Self
     ) -> Self {
         condition(
-            then: value,
-            else: fallback
+            then: thenValue,
+            else: elseValue
         )
     }
 }

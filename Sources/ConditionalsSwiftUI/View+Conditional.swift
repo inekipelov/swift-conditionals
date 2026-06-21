@@ -8,10 +8,10 @@ public extension View {
     @ViewBuilder
     func conditional<C: Condition, Modified: View>(
         _ condition: ConditionKey<C>,
-        @ViewBuilder then transform: @MainActor (Self) -> Modified
+        @ViewBuilder then thenContent: @MainActor (Self) -> Modified
     ) -> some View {
         if condition.isSatisfied {
-            transform(self)
+            thenContent(self)
         } else {
             self
         }
@@ -21,13 +21,13 @@ public extension View {
     @ViewBuilder
     func conditional<C: Condition, Then: View, Else: View>(
         _ condition: ConditionKey<C>,
-        @ViewBuilder then thenTransform: @MainActor (Self) -> Then,
-        @ViewBuilder else elseTransform: @MainActor (Self) -> Else
+        @ViewBuilder then thenContent: @MainActor (Self) -> Then,
+        @ViewBuilder else elseContent: @MainActor (Self) -> Else
     ) -> some View {
         if condition.isSatisfied {
-            thenTransform(self)
+            thenContent(self)
         } else {
-            elseTransform(self)
+            elseContent(self)
         }
     }
 }

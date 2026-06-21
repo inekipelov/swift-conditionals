@@ -5,10 +5,7 @@ public struct ConditionKey<C: Condition>: Sendable {
 
     /// `true` when the wrapped condition selects the `then` branch.
     public var isSatisfied: Bool {
-        C.perform(
-            then: { true },
-            else: { false }
-        )
+        C.perform({ true }, else: { false })
     }
 
     /// Evaluates the wrapped condition with explicit branch closures.
@@ -16,10 +13,7 @@ public struct ConditionKey<C: Condition>: Sendable {
         then: () -> Value,
         else: () -> Value
     ) -> Value {
-        C.perform(
-            then: then,
-            else: `else`
-        )
+        C.perform(then, else: `else`)
     }
 
     /// Evaluates the wrapped condition with autoclosure branches.
@@ -27,9 +21,6 @@ public struct ConditionKey<C: Condition>: Sendable {
         then: @autoclosure () -> Value,
         else: @autoclosure () -> Value
     ) -> Value {
-        C.perform(
-            then: then,
-            else: `else`
-        )
+        C.perform( then, else: `else`)
     }
 }

@@ -2,7 +2,7 @@
 public protocol Condition: Sendable {
     /// Evaluates the condition and returns the selected branch.
     static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value
 }

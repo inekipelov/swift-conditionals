@@ -2,7 +2,7 @@
 public struct macOS15: Condition {
     /// Evaluates whether macOS 15 or newer is available on the current platform.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         #if os(macOS)

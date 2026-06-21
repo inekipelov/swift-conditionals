@@ -2,7 +2,7 @@
 public struct WWDC22: Condition {
     /// Evaluates whether the 2022 baseline is available.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         if #available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *) {

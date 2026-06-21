@@ -153,13 +153,13 @@ final class ConditionalsTests: XCTestCase {
     }
 
     private struct AlwaysTrue: Condition {
-        static func perform<Value>(then: () -> Value, else: () -> Value) -> Value {
+        static func perform<Value>(_ then: () -> Value, else: () -> Value) -> Value {
             then()
         }
     }
 
     private struct AlwaysFalse: Condition {
-        static func perform<Value>(then: () -> Value, else: () -> Value) -> Value {
+        static func perform<Value>(_ then: () -> Value, else: () -> Value) -> Value {
             `else`()
         }
     }

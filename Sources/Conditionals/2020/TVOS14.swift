@@ -2,7 +2,7 @@
 public struct TVOS14: Condition {
     /// Evaluates whether tvOS 14 or newer is available on the current platform.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         #if os(tvOS)

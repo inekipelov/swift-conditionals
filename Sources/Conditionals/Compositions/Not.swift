@@ -2,11 +2,11 @@
 public struct Not<C: Condition>: Condition {
     /// Evaluates the wrapped condition and swaps its branches.
     public static func perform<Value>(
-        then: () -> Value,
+        _ then: () -> Value,
         else: () -> Value
     ) -> Value {
         C.perform(
-            then: `else`,
+            `else`,
             else: then
         )
     }
