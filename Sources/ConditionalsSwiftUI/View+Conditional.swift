@@ -4,6 +4,17 @@ import SwiftUI
 
 /// SwiftUI helpers for conditionally transforming a view.
 public extension View {
+    /// Applies an arbitrary transform to the view.
+    ///
+    /// Use this when the closure needs to compose its own static conditions.
+    @ViewBuilder
+    @inlinable
+    func conditional<Content: View>(
+        @ViewBuilder _ content: @MainActor (Self) -> Content
+    ) -> some View {
+        content(self)
+    }
+
     /// Applies `then` when the condition is `true`; otherwise returns the original view.
     @ViewBuilder
     @inlinable

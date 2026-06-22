@@ -7,6 +7,15 @@ import SwiftUI
 @Suite("SwiftUI Builders")
 struct SwiftUIBuilderTests {
     @MainActor
+    @Test func bareConditionalCompiles() {
+        let transformed = Text("Content").conditional { view in
+            view.frame(maxWidth: .infinity, alignment: .leading)
+        }
+
+        _ = transformed
+    }
+
+    @MainActor
     @Test func viewConditionalCompiles() {
         let oneBranch = Text("Content").conditional(ConditionKey<AlwaysTrue>()) { view in
             view
