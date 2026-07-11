@@ -1,79 +1,79 @@
-# DocC-покрытие публичного API
+# Public API DocC Coverage
 
-## Цель
+## Goal
 
-Сделать публичный API `Conditionals` и `ConditionalsSwiftUI` понятным из Quick Help и сгенерированного DocC-каталога без чтения реализации. Документация должна объяснять не только назначение символов, но и важную семантику: ленивое вычисление веток, short-circuit композиций, availability и платформенные ограничения.
+Make the public APIs of `Conditionals` and `ConditionalsSwiftUI` understandable from Quick Help and the generated DocC catalog without reading their implementations. Documentation must explain not only each symbol's purpose but also important semantics: lazy branch evaluation, composition short-circuiting, availability, and platform constraints.
 
-## Область работ
+## Scope
 
-Документируется каждый публичный символ в `Sources/Conditionals` и `Sources/ConditionalsSwiftUI`:
+Document every public symbol in `Sources/Conditionals` and `Sources/ConditionalsSwiftUI`:
 
-- протоколы, структуры, перечисления и associated requirements;
-- инициализаторы, свойства, методы и фабрики `ConditionKey`;
-- композиции `allOf`, `anyOf` и `not`;
-- платформенные, версионные, WWDC- и extension-point conditions;
-- SwiftUI builder extensions и view modifiers;
-- публичные `ConditionalValue` conformances стандартной библиотеки и SwiftUI.
+- protocols, structures, enumerations, and associated requirements;
+- `ConditionKey` initializers, properties, methods, and factories;
+- `allOf`, `anyOf`, and `not` compositions;
+- platform, version, WWDC, and extension-point conditions;
+- SwiftUI builder extensions and view modifiers;
+- public `ConditionalValue` conformances in the standard library and SwiftUI.
 
-Internal helper-типы и детали реализации не входят в публичный каталог.
+Internal helper types and implementation details are excluded from the public catalog.
 
-## Стиль комментариев
+## Comment Style
 
 ### Core API
 
-Для `Condition`, `ConditionKey`, `ConditionalValue`, композиций и SwiftUI modifiers используются расширенные комментарии:
+Use expanded comments for `Condition`, `ConditionKey`, `ConditionalValue`, compositions, and SwiftUI modifiers:
 
-- краткий summary в первой строке;
-- пояснение поведения и момента вычисления;
-- небольшой компилируемый пример для основных точек входа;
-- `- Parameters:` и `- Returns:` для функций;
-- `> Important:` или `> Note:` только для существенных ограничений;
-- явное описание short-circuit и того, что невыбранная ветка не вычисляется.
+- a concise summary on the first line;
+- an explanation of behavior and evaluation timing;
+- a small compiling example for primary entry points;
+- `- Parameters:` and `- Returns:` for functions;
+- `> Important:` or `> Note:` only for material constraints;
+- an explicit description of short-circuiting and the fact that the unselected branch is not evaluated.
 
-Имена параметров в документации должны совпадать с сигнатурами. Примеры используют существующий синтаксический сахар библиотеки и не вводят вымышленные API.
+Documentation parameter names must match their signatures. Examples use the library's existing syntactic sugar and introduce no fictional API.
 
-### Повторяющиеся conditions
+### Repeated Conditions
 
-Платформенные и версионные типы получают компактный, но полный шаблон:
+Platform and version types use a compact but complete template:
 
-- что именно проверяется;
-- когда выбирается `then` и когда `else`;
-- описание статического ключа `ConditionKey`;
-- для `perform` — параметры и возвращаемое значение.
+- what is checked;
+- when `then` or `else` is selected;
+- a description of the static `ConditionKey`;
+- parameters and return value for `perform`.
 
-Одинаковые формулировки допустимы для поколений API, если различаются корректные названия платформ и версии. Примеры на каждом таком типе не добавляются, чтобы каталог не был перегружен дублированием.
+The same wording is acceptable for API generations when platform names and versions are correct. Do not add examples to every such type, so the catalog does not become overloaded with duplication.
 
 ### ConditionalValue conformances
 
-Каждое conformance получает однострочное описание возможности выбирать значение через `ConditionalValue.value`. Availability остается источником информации о минимальной версии и не дублируется текстом.
+Each conformance gets a one-line description of its ability to select a value through `ConditionalValue.value`. Availability remains the source of minimum-version information and is not duplicated in prose.
 
-## Структура DocC
+## DocC Structure
 
-Для каждого library product создается DocC catalog:
+Create a DocC catalog for each library product:
 
-- landing page с назначением модуля и минимальным примером;
-- topic groups для core API, compositions, platforms, SDK generations, extensions и SwiftUI integration;
-- ссылки между связанными символами через DocC symbol links;
-- отдельные conceptual pages только там, где inline-комментария недостаточно: композиция conditions и SwiftUI integration.
+- a landing page with the module's purpose and a minimal example;
+- topic groups for the core API, compositions, platforms, SDK generations, extensions, and SwiftUI integration;
+- links between related symbols through DocC symbol links;
+- separate conceptual pages only where inline comments are insufficient: condition composition and SwiftUI integration.
 
-Каталог `ConditionalsSwiftUI` явно указывает, что модуль re-export `Conditionals` и требует SwiftUI, но не дублирует документацию core API.
+The `ConditionalsSwiftUI` catalog explicitly states that the module re-exports `Conditionals` and requires SwiftUI without duplicating core API documentation.
 
-## Проверка
+## Verification
 
-Готовность подтверждается следующими проверками:
+Confirm completion with the following checks:
 
-- symbol graph не содержит публичных declarations без documentation comments;
-- `swift package generate-documentation` или эквивалентный `xcodebuild docbuild` завершается без DocC warnings;
-- примеры используют существующие публичные сигнатуры;
-- `swift test -Xswiftc -warnings-as-errors` проходит;
-- iOS, tvOS и watchOS compile matrix продолжает собираться с `-warnings-as-errors`;
-- `git diff --check` не находит formatting defects.
+- the symbol graph contains no public declarations without documentation comments;
+- `swift package generate-documentation` or an equivalent `xcodebuild docbuild` finishes without DocC warnings;
+- examples use existing public signatures;
+- `swift test -Xswiftc -warnings-as-errors` passes;
+- the iOS, tvOS, and watchOS compile matrix continues to build with `-warnings-as-errors`;
+- `git diff --check` finds no formatting defects.
 
-Если локальный toolchain не содержит DocC plugin, это фиксируется как ограничение, а symbol graph и Swift build остаются обязательными проверками.
+If the local toolchain does not include a DocC plugin, record that as a limitation while symbol graph generation and Swift builds remain required checks.
 
-## Ограничения
+## Constraints
 
-- Документация пишется на английском, чтобы соответствовать именованию API и README репозитория.
-- Публичные сигнатуры и runtime-семантика не меняются.
-- Отдельный hosted documentation deployment не добавляется в этом проходе.
-- Документация Apple API не копируется; используются symbol links и краткое описание роли conformances.
+- Documentation is written in English to align with API naming and the repository README.
+- Public signatures and runtime semantics do not change.
+- A separate hosted documentation deployment is out of scope for this pass.
+- Do not copy Apple API documentation; use symbol links and concise descriptions of conformance roles.

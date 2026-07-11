@@ -1,9 +1,9 @@
-# Расширение SwiftUI ConditionalValue
+# SwiftUI ConditionalValue Expansion
 
-## Цель
+## Goal
 
-Расширить `ConditionalsSwiftUI` на основные конкретные value-типы SwiftUI,
-сохранив единый type-centric синтаксис и строгую типизацию обеих веток.
+Extend `ConditionalsSwiftUI` with core concrete SwiftUI value types while
+preserving one type-centric syntax and strict typing for both branches.
 
 ```swift
 Color.value(.iOS26, .blue, else: .cyan)
@@ -11,25 +11,25 @@ Font.value(.iPad, .title, else: .body)
 Material.value(.visionOS, .thin, else: .regular)
 ```
 
-Каждый вызов возвращает `Self`. Значения `then` и `else` обязаны иметь один
-конкретный тип.
+Each call returns `Self`. The `then` and `else` values must have one concrete
+type.
 
-## Принципы API
+## API Principles
 
-- Использовать существующий `ConditionalValue` без новых методов выбора.
-- Добавлять явные conformance только конкретным публичным SwiftUI value-типам.
-- Не использовать type erasure, включая `AnyShapeStyle` и другие `Any*`-типы.
-- Не добавлять overloads, выбирающие между разными реализациями `ShapeStyle`.
-- Не превращать runtime-значения окружения, например dark mode, в статические
+- Use the existing `ConditionalValue` without new selection methods.
+- Add explicit conformances only to concrete public SwiftUI value types.
+- Do not use type erasure, including `AnyShapeStyle` or other `Any*` types.
+- Do not add overloads that select between different `ShapeStyle` implementations.
+- Do not turn runtime environment values, such as dark mode, into static
   `Condition`.
-- Сохранять точную availability каждого SwiftUI-типа на всех поддерживаемых
-  платформах.
+- Preserve the exact availability of each SwiftUI type on every supported
+  platform.
 
-`Color` остается context-dependent значением SwiftUI. Condition выбирает один
-из двух объектов `Color`, а разрешение light/dark-варианта выполняет SwiftUI при
-отрисовке.
+`Color` remains a context-dependent SwiftUI value. A condition selects one of
+two `Color` objects, while SwiftUI resolves its light or dark variant during
+rendering.
 
-## Поддерживаемые типы
+## Supported Types
 
 ### Appearance
 
@@ -40,7 +40,7 @@ Material.value(.visionOS, .thin, else: .regular)
 - `AngularGradient`
 - `EllipticalGradient`
 - `Material`
-- существующие `ColorScheme`, `ColorSchemeContrast`, `LegibilityWeight`
+- existing `ColorScheme`, `ColorSchemeContrast`, `LegibilityWeight`
 
 ### Typography
 
@@ -52,7 +52,7 @@ Material.value(.visionOS, .thin, else: .regular)
 - `Font.Width`
 - `TextAlignment`
 - `Text.TruncationMode`
-- существующие `DynamicTypeSize`, `SubmitLabel`
+- existing `DynamicTypeSize`, `SubmitLabel`
 
 ### Layout
 
@@ -66,7 +66,7 @@ Material.value(.visionOS, .thin, else: .regular)
 - `Axis.Set`
 - `ContentMode`
 - `PinnedScrollableViews`
-- существующие `LayoutDirection`, `UserInterfaceSizeClass`
+- existing `LayoutDirection`, `UserInterfaceSizeClass`
 
 ### Rendering
 
@@ -75,27 +75,27 @@ Material.value(.visionOS, .thin, else: .regular)
 - `FillStyle`
 - `StrokeStyle`
 - `RoundedCornerStyle`
-- существующие `SymbolRenderingMode`, `SymbolVariants`
+- existing `SymbolRenderingMode`, `SymbolVariants`
 
 ### Behavior
 
 - `Animation`
 - `RedactionReasons`
-- существующие `ScenePhase`, `ControlSize`, `EditMode`, `Visibility`
+- existing `ScenePhase`, `ControlSize`, `EditMode`, `Visibility`
 
 ### Navigation and presentation
 
-- существующие `ToolbarItemPlacement`, `CommandGroupPlacement`, `ToolbarRole`
-- существующие `NavigationSplitViewVisibility`, `PresentationDetent`
-- существующие `PresentationBackgroundInteraction`, `TabPlacement`
+- existing `ToolbarItemPlacement`, `CommandGroupPlacement`, `ToolbarRole`
+- existing `NavigationSplitViewVisibility`, `PresentationDetent`
+- existing `PresentationBackgroundInteraction`, `TabPlacement`
 
-Перед реализацией каждый новый тип проверяется по текущему SwiftUI SDK. Тип
-исключается, если он недоступен как публичный concrete type или требует type
-erasure для согласования веток.
+Before implementation, verify every new type against the current SwiftUI SDK.
+Exclude a type when it is unavailable as a public concrete type or requires type
+erasure to align the branches.
 
-## Организация исходников
+## Source Organization
 
-Текущий монолитный `ConditionalValue+SwiftUI.swift` разделяется по назначению:
+Split the current monolithic `ConditionalValue+SwiftUI.swift` by purpose:
 
 ```text
 Sources/ConditionalsSwiftUI/ConditionalValues/
@@ -107,44 +107,42 @@ Sources/ConditionalsSwiftUI/ConditionalValues/
 `-- NavigationAndPresentation.swift
 ```
 
-Каждый файл содержит только `import SwiftUI`, availability-аннотации и
-`ConditionalValue`-conformance. Логика выбора остается единственной в модуле
-`Conditionals`.
+Each file contains only `import SwiftUI`, availability annotations, and
+`ConditionalValue` conformances. The selection logic remains solely in the
+`Conditionals` module.
 
-## Поток данных
+## Data Flow
 
-1. Клиент вызывает `SomeSwiftUIType.value(condition, then, else:)`.
-2. Реализация `ConditionalValue` передает обе ветки в `ConditionKey`.
-3. `ConditionKey` вычисляет статический `Condition` и возвращает значение того
-   же конкретного типа.
-4. SwiftUI получает обычное значение без wrapper-типа и type erasure.
+1. A client calls `SomeSwiftUIType.value(condition, then, else:)`.
+2. The `ConditionalValue` implementation passes both branches to `ConditionKey`.
+3. `ConditionKey` evaluates the static `Condition` and returns a value of the
+   same concrete type.
+4. SwiftUI receives an ordinary value without a wrapper type or type erasure.
 
-## Ошибки и ограничения
+## Errors and Constraints
 
-- Несовпадающие типы веток должны завершаться compile-time ошибкой.
-- Environment-dependent состояния не поддерживаются как `ConditionKey`, потому
-  что текущий `Condition` не получает `EnvironmentValues`.
-- Availability новых conformance не должна поднимать минимальные версии всего
-  пакета.
-- README сохраняет текущий единственный usage-пример; новая поверхность API не
-  требует отдельного специализированного синтаксиса.
+- Mismatched branch types must produce a compile-time error.
+- Environment-dependent state is not supported as a `ConditionKey` because the
+  current `Condition` does not receive `EnvironmentValues`.
+- The availability of new conformances must not raise the minimum versions of
+  the entire package.
+- The README retains its single usage example; the new API surface requires no
+  separate specialized syntax.
 
-## Тестирование
+## Testing
 
-- Разделить SwiftUI value compile-smoke тесты по тем же категориям, что и
-  исходники.
-- Для каждого нового типа скомпилировать вызов `.value(...)` с обеими ветками
-  одного типа.
-- Добавить проверки выбора ветки для `Color`, так как `Color` поддерживает
-  сравнение.
-- Для API с более высокой availability использовать `#available` и те же
-  platform guards, что и в исходниках.
-- Выполнить `swift test`; существующие core- и builder-тесты должны пройти без
-  изменений поведения.
+- Split SwiftUI value compile-smoke tests into the same categories as the
+  sources.
+- Compile a `.value(...)` call with same-type branches for every new type.
+- Add branch-selection checks for `Color` because it supports comparison.
+- Use `#available` and the same platform guards as the sources for APIs with
+  higher availability.
+- Run `swift test`; existing core and builder tests must pass with unchanged
+  behavior.
 
-## Критерии готовности
+## Completion Criteria
 
-- Все перечисленные и доступные в SDK concrete-типы поддерживают `.value(...)`.
-- В публичном API отсутствуют новые type-erased wrapper-типы.
-- Структура файлов отражает назначение типов.
-- Все тесты пакета проходят на Swift 6.
+- Every listed concrete type available in the SDK supports `.value(...)`.
+- The public API contains no new type-erased wrapper types.
+- The file structure reflects the purpose of each type.
+- All package tests pass on Swift 6.

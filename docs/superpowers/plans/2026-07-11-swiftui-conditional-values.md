@@ -2,22 +2,22 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Добавить строготипизированный `ConditionalValue` API для основных concrete value-типов SwiftUI и разнести conformances по назначению.
+**Goal:** Add a strongly typed `ConditionalValue` API for core concrete SwiftUI value types and organize conformances by purpose.
 
-**Architecture:** Каждый поддерживаемый SwiftUI-тип явно получает `ConditionalValue`, поэтому существующие `static value(...)` всегда принимают и возвращают один `Self`. Новый runtime-код, wrapper-типы и type erasure не добавляются; монолитный список conformances и его compile-smoke тест разделяются на шесть категорий.
+**Architecture:** Each supported SwiftUI type explicitly adopts `ConditionalValue`, so the existing `static value(...)` methods always accept and return one `Self`. No runtime code, wrapper types, or type erasure are added; the monolithic list of conformances and its compile-smoke test are split into six categories.
 
 **Tech Stack:** Swift 6.3, SwiftUI, Swift Testing, Swift Package Manager.
 
 ## Global Constraints
 
-- Минимальная версия tools остается `swift-tools-version: 6.0`.
-- Минимальные платформы пакета остаются iOS 13, macOS 10.15, tvOS 13, watchOS 6 и visionOS 1.
-- Обе ветки `.value(...)` обязаны иметь один конкретный `Self`.
-- Не добавлять `AnyShapeStyle`, другие `Any*`-типы или overloads между разными `ShapeStyle`.
-- Не добавлять `.darkMode` или другие environment-dependent значения как `ConditionKey`.
-- Каждый conformance получает точную availability исходного SwiftUI-типа.
-- `ConditionalsSwiftUI` продолжает re-export `Conditionals`.
-- README сохраняет текущий единственный usage-пример.
+- The minimum tools version remains `swift-tools-version: 6.0`.
+- The package minimum platforms remain iOS 13, macOS 10.15, tvOS 13, watchOS 6, and visionOS 1.
+- Both `.value(...)` branches must have one concrete `Self` type.
+- Do not add `AnyShapeStyle`, other `Any*` types, or overloads that select between different `ShapeStyle` implementations.
+- Do not add `.darkMode` or other environment-dependent values as `ConditionKey` values.
+- Each conformance uses the exact availability of its underlying SwiftUI type.
+- `ConditionalsSwiftUI` continues to re-export `Conditionals`.
+- The README retains its current single usage example.
 
 ---
 
