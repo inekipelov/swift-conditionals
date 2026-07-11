@@ -1,7 +1,6 @@
 # Conditionals
 
-`Conditionals` is a Swift Package that provides typed availability checks
-and branch selection for Swift values and SwiftUI views.
+`Conditionals` is a Swift Package for expressing platform, SDK, and extension checks as typed, composable conditions. Use the same conditions to lazily select Swift values and transform SwiftUI content.
 
 <p align="center">
   <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-6.0+-F05138?logo=swift&logoColor=white" alt="Swift 6.0+"></a>
@@ -12,7 +11,26 @@ and branch selection for Swift values and SwiftUI views.
   <a href="https://developer.apple.com/visionos/"><img src="https://img.shields.io/badge/visionOS-1.0+-CAFC63?logo=apple" alt="visionOS 1.0+"></a>
 </p>
 
-## Usage
+## Why
+
+- Typed conditions instead of unstructured Boolean flags.
+- Lazy branch evaluation: only the selected branch runs.
+- Composable checks with `allOf`, `anyOf`, and `not`.
+- A Swift-only core target; SwiftUI support is optional.
+
+## Swift
+
+```swift
+import Conditionals
+
+let buttonTitle = String.value(
+    .allOf(.iOS26, .not(.iPad)),
+    "Continue",
+    else: "Open"
+)
+```
+
+## SwiftUI
 
 ```swift
 import ConditionalsSwiftUI
@@ -26,6 +44,13 @@ Button {
         }
 }
 ```
+
+## What You Can Check
+
+- Platforms, OS versions, and WWDC SDK baselines.
+- Device idioms and app-extension points.
+- Combinations of conditions with `allOf`, `anyOf`, and `not`.
+- SwiftUI views, builders, and concrete value types.
 
 ## Installation
 
