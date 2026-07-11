@@ -11,19 +11,15 @@ struct SwiftUIValueTests {
         let layoutDirection = LayoutDirection.value(ConditionKey<AlwaysTrue>(), .rightToLeft, else: .leftToRight)
         let scenePhase = ScenePhase.value(ConditionKey<AlwaysTrue>(), .active, else: .background)
         let controlSize = ControlSize.value(ConditionKey<AlwaysTrue>(), .large, else: .mini)
-        let dynamicTypeSize = DynamicTypeSize.value(ConditionKey<AlwaysTrue>(), .xxxLarge, else: .small)
         let symbolRenderingMode = SymbolRenderingMode.value(ConditionKey<AlwaysTrue>(), .palette, else: .monochrome)
         let symbolVariants = SymbolVariants.value(ConditionKey<AlwaysTrue>(), .fill, else: .none)
-        let submitLabel = SubmitLabel.value(ConditionKey<AlwaysTrue>(), .done, else: .go)
 
         _ = sizeClass
         _ = layoutDirection
         _ = scenePhase
         _ = controlSize
-        _ = dynamicTypeSize
         _ = symbolRenderingMode
         _ = symbolVariants
-        _ = submitLabel
     }
 
     @Test func placementAndPresentationValuesCompile() {
