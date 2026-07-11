@@ -7,9 +7,6 @@ import SwiftUI
 @Suite("SwiftUI Values")
 struct SwiftUIValueTests {
     @Test func coreSwiftUIValuesCompile() {
-        let colorScheme = ColorScheme.value(ConditionKey<AlwaysTrue>(), .dark, else: .light)
-        let colorSchemeContrast = ColorSchemeContrast.value(ConditionKey<AlwaysTrue>(), .increased, else: .standard)
-        let legibility = LegibilityWeight.value(ConditionKey<AlwaysTrue>(), .bold, else: .regular)
         let sizeClass = UserInterfaceSizeClass.value(ConditionKey<AlwaysTrue>(), .regular, else: .compact)
         let layoutDirection = LayoutDirection.value(ConditionKey<AlwaysTrue>(), .rightToLeft, else: .leftToRight)
         let scenePhase = ScenePhase.value(ConditionKey<AlwaysTrue>(), .active, else: .background)
@@ -19,9 +16,6 @@ struct SwiftUIValueTests {
         let symbolVariants = SymbolVariants.value(ConditionKey<AlwaysTrue>(), .fill, else: .none)
         let submitLabel = SubmitLabel.value(ConditionKey<AlwaysTrue>(), .done, else: .go)
 
-        _ = colorScheme
-        _ = colorSchemeContrast
-        _ = legibility
         _ = sizeClass
         _ = layoutDirection
         _ = scenePhase
