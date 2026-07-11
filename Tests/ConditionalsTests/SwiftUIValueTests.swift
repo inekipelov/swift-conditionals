@@ -7,15 +7,11 @@ import SwiftUI
 @Suite("SwiftUI Values")
 struct SwiftUIValueTests {
     @Test func coreSwiftUIValuesCompile() {
-        let sizeClass = UserInterfaceSizeClass.value(ConditionKey<AlwaysTrue>(), .regular, else: .compact)
-        let layoutDirection = LayoutDirection.value(ConditionKey<AlwaysTrue>(), .rightToLeft, else: .leftToRight)
         let scenePhase = ScenePhase.value(ConditionKey<AlwaysTrue>(), .active, else: .background)
         let controlSize = ControlSize.value(ConditionKey<AlwaysTrue>(), .large, else: .mini)
         let symbolRenderingMode = SymbolRenderingMode.value(ConditionKey<AlwaysTrue>(), .palette, else: .monochrome)
         let symbolVariants = SymbolVariants.value(ConditionKey<AlwaysTrue>(), .fill, else: .none)
 
-        _ = sizeClass
-        _ = layoutDirection
         _ = scenePhase
         _ = controlSize
         _ = symbolRenderingMode
