@@ -6,25 +6,44 @@ import Testing
 
 @Suite("SwiftUI Navigation and Presentation Values")
 struct SwiftUINavigationAndPresentationValueTests {
-    @Test func placementAndPresentationValuesCompile() {
-        let condition = ConditionKey<AlwaysTrue>()
-        let toolbarPlacement = ToolbarItemPlacement.value(condition, .automatic, else: .automatic)
-        let commandGroupPlacement = CommandGroupPlacement.value(condition, .toolbar, else: .sidebar)
-        let toolbarRole = ToolbarRole.value(condition, .automatic, else: .automatic)
-        let navigationVisibility = NavigationSplitViewVisibility.value(condition, .all, else: .detailOnly)
-        let presentationDetent = PresentationDetent.value(condition, .large, else: .medium)
-        let backgroundInteraction = PresentationBackgroundInteraction.value(
-            condition,
-            .enabled,
-            else: .disabled
-        )
+    @Test func toolbarPlacementCompilesWhenAvailable() {
+        if #available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 14.0, visionOS 1.0, watchOS 7.0, *) {
+            let placement = ToolbarItemPlacement.value(ConditionKey<AlwaysTrue>(), .automatic, else: .automatic)
+            _ = placement
+        }
+    }
 
-        _ = toolbarPlacement
-        _ = commandGroupPlacement
-        _ = toolbarRole
-        _ = navigationVisibility
-        _ = presentationDetent
-        _ = backgroundInteraction
+    #if os(iOS) || os(macOS) || os(visionOS) || targetEnvironment(macCatalyst)
+    @Test func commandGroupPlacementCompilesWhenAvailable() {
+        if #available(iOS 14.0, macCatalyst 14.0, macOS 11.0, visionOS 1.0, *) {
+            let placement = CommandGroupPlacement.value(ConditionKey<AlwaysTrue>(), .toolbar, else: .sidebar)
+            _ = placement
+        }
+    }
+    #endif
+
+    @Test func navigationAndPresentationValuesCompileWhenAvailable() {
+        if #available(iOS 16.0, macCatalyst 16.0, macOS 13.0, tvOS 16.0, visionOS 1.0, watchOS 9.0, *) {
+            let condition = ConditionKey<AlwaysTrue>()
+            let toolbarRole = ToolbarRole.value(condition, .automatic, else: .automatic)
+            let navigationVisibility = NavigationSplitViewVisibility.value(condition, .all, else: .detailOnly)
+            let presentationDetent = PresentationDetent.value(condition, .large, else: .medium)
+
+            _ = toolbarRole
+            _ = navigationVisibility
+            _ = presentationDetent
+        }
+    }
+
+    @Test func backgroundInteractionCompilesWhenAvailable() {
+        if #available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, visionOS 1.0, watchOS 9.4, *) {
+            let interaction = PresentationBackgroundInteraction.value(
+                ConditionKey<AlwaysTrue>(),
+                .enabled,
+                else: .disabled
+            )
+            _ = interaction
+        }
     }
 
     @Test func tabPlacementCompilesWhenAvailable() {

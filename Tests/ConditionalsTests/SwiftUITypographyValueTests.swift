@@ -12,21 +12,33 @@ struct SwiftUITypographyValueTests {
         let design = Font.Design.value(condition, .rounded, else: .default)
         let weight = Font.Weight.value(condition, .bold, else: .regular)
         let textStyle = Font.TextStyle.value(condition, .headline, else: .body)
-        let leading = Font.Leading.value(condition, .tight, else: .loose)
         let alignment = TextAlignment.value(condition, .leading, else: .trailing)
         let truncation = Text.TruncationMode.value(condition, .head, else: .tail)
-        let dynamicTypeSize = DynamicTypeSize.value(condition, .xxxLarge, else: .small)
-        let submitLabel = SubmitLabel.value(condition, .done, else: .go)
 
         _ = font
         _ = design
         _ = weight
         _ = textStyle
-        _ = leading
         _ = alignment
         _ = truncation
-        _ = dynamicTypeSize
-        _ = submitLabel
+    }
+
+    @Test func fontLeadingCompilesWhenAvailable() {
+        if #available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 14.0, visionOS 1.0, watchOS 7.0, *) {
+            let leading = Font.Leading.value(ConditionKey<AlwaysTrue>(), .tight, else: .loose)
+            _ = leading
+        }
+    }
+
+    @Test func modernTypographyValuesCompileWhenAvailable() {
+        if #available(iOS 15.0, macCatalyst 15.0, macOS 12.0, tvOS 15.0, visionOS 1.0, watchOS 8.0, *) {
+            let condition = ConditionKey<AlwaysTrue>()
+            let dynamicTypeSize = DynamicTypeSize.value(condition, .xxxLarge, else: .small)
+            let submitLabel = SubmitLabel.value(condition, .done, else: .go)
+
+            _ = dynamicTypeSize
+            _ = submitLabel
+        }
     }
 
     @Test func fontWidthCompilesWhenAvailable() {

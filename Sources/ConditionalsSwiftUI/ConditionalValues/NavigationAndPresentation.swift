@@ -5,6 +5,8 @@ import SwiftUI
 extension ToolbarItemPlacement: ConditionalValue {}
 
 @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, visionOS 1.0, *)
+@available(tvOS, unavailable)
+@available(watchOS, unavailable)
 extension CommandGroupPlacement: ConditionalValue {}
 
 @available(iOS 16.0, macCatalyst 16.0, macOS 13.0, tvOS 16.0, visionOS 1.0, watchOS 9.0, *)

@@ -1,4 +1,4 @@
-#if canImport(UIKit)
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 #endif
 
@@ -9,8 +9,8 @@ public struct iPhone: Condition {
         _ then: () -> Value,
         else: () -> Value
     ) -> Value {
-        #if canImport(UIKit)
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        #if os(iOS) || targetEnvironment(macCatalyst)
+        if currentUserInterfaceIdiom() == .phone {
             then()
         } else {
             `else`()

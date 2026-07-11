@@ -20,15 +20,22 @@ struct SwiftUIRenderingValueTests {
             else: StrokeStyle(lineWidth: 2)
         )
         let cornerStyle = RoundedCornerStyle.value(condition, .circular, else: .continuous)
-        let symbolMode = SymbolRenderingMode.value(condition, .palette, else: .monochrome)
-        let symbolVariants = SymbolVariants.value(condition, .fill, else: .none)
 
         _ = blendMode
         _ = fillStyle
         _ = strokeStyle
         _ = cornerStyle
-        _ = symbolMode
-        _ = symbolVariants
+    }
+
+    @Test func symbolRenderingValuesCompileWhenAvailable() {
+        if #available(iOS 15.0, macCatalyst 15.0, macOS 12.0, tvOS 15.0, visionOS 1.0, watchOS 8.0, *) {
+            let condition = ConditionKey<AlwaysTrue>()
+            let symbolMode = SymbolRenderingMode.value(condition, .palette, else: .monochrome)
+            let symbolVariants = SymbolVariants.value(condition, .fill, else: .none)
+
+            _ = symbolMode
+            _ = symbolVariants
+        }
     }
 
     @Test func imageScaleCompilesWhenAvailable() {

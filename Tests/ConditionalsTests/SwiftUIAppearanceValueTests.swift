@@ -20,6 +20,7 @@ struct SwiftUIAppearanceValueTests {
     @Test func concreteAppearanceValuesCompile() {
         let condition = ConditionKey<AlwaysTrue>()
         let color = Color.value(condition, .red, else: .blue)
+        let fallbackColor = Color.value(ConditionKey<AlwaysFalse>(), .red, else: .blue)
         let gradient = Gradient.value(
             condition,
             Gradient(colors: [.red, .blue]),
@@ -42,6 +43,7 @@ struct SwiftUIAppearanceValueTests {
         )
 
         #expect(color == .red)
+        #expect(fallbackColor == .blue)
         _ = gradient
         _ = linear
         _ = radial
@@ -56,9 +58,11 @@ struct SwiftUIAppearanceValueTests {
                 EllipticalGradient(colors: [.red, .blue]),
                 else: EllipticalGradient(colors: [.blue, .red])
             )
-            let material = Material.value(condition, .thin, else: .regular)
-
             _ = elliptical
+        }
+
+        if #available(iOS 15.0, macCatalyst 15.0, macOS 12.0, tvOS 15.0, visionOS 1.0, watchOS 10.0, *) {
+            let material = Material.value(ConditionKey<AlwaysTrue>(), .thin, else: .regular)
             _ = material
         }
     }

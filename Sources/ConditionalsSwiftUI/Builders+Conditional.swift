@@ -2,12 +2,11 @@
 import SwiftUI
 @_exported import Conditionals
 
-@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 14.0, visionOS 1.0, watchOS 7.0, *)
+@available(iOS 16.0, macCatalyst 16.0, macOS 13.0, tvOS 16.0, visionOS 1.0, watchOS 9.0, *)
 public extension ToolbarContent {
     /// Applies `then` when the condition is `true`; otherwise returns the original toolbar content.
     @ToolbarContentBuilder
     @inlinable
-    @available(macOS 13.0, *)
     func conditional<C: Condition, Modified: ToolbarContent>(
         _ condition: ConditionKey<C>,
         @ToolbarContentBuilder then thenContent: @MainActor (Self) -> Modified
@@ -22,7 +21,6 @@ public extension ToolbarContent {
     /// Applies one of two toolbar transforms based on the condition.
     @ToolbarContentBuilder
     @inlinable
-    @available(macOS 13.0, *)
     func conditional<C: Condition, Then: ToolbarContent, Else: ToolbarContent>(
         _ condition: ConditionKey<C>,
         @ToolbarContentBuilder then thenContent: @MainActor (Self) -> Then,
@@ -68,12 +66,13 @@ public extension TabContent {
     }
 }
 
-@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, visionOS 1.0, *)
+@available(iOS 16.0, macCatalyst 16.0, macOS 13.0, visionOS 1.0, *)
+@available(tvOS, unavailable)
+@available(watchOS, unavailable)
 public extension Commands {
     /// Applies `then` when the condition is `true`; otherwise returns the original command hierarchy.
     @CommandsBuilder
     @inlinable
-    @available(macOS 13.0, *)
     func conditional<C: Condition, Modified: Commands>(
         _ condition: ConditionKey<C>,
         @CommandsBuilder then thenContent: @MainActor (Self) -> Modified
@@ -88,7 +87,6 @@ public extension Commands {
     /// Applies one of two command transforms based on the condition.
     @CommandsBuilder
     @inlinable
-    @available(macOS 13.0, *)
     func conditional<C: Condition, Then: Commands, Else: Commands>(
         _ condition: ConditionKey<C>,
         @CommandsBuilder then thenContent: @MainActor (Self) -> Then,
