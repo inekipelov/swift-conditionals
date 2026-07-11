@@ -34,4 +34,14 @@ struct ConditionalValueTests {
         _ = dictionaryValue
         _ = setValue
     }
+
+    @Test func readmeSwiftExampleCompiles() {
+        let buttonTitle = String.value(
+            .allOf(.iOS26, .not(.iPad)),
+            "Continue",
+            else: "Open"
+        )
+
+        _ = buttonTitle
+    }
 }

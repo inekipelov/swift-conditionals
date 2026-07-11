@@ -128,5 +128,19 @@ struct SwiftUIBuilderTests {
             _ = twoBranch
         }
     }
+
+    @MainActor
+    @Test func readmeSwiftUIExampleCompiles() {
+        let button = Button {
+            // action
+        } label: {
+            Label("Continue", systemImage: "arrow.right")
+                .conditional(.not(.wwdc25)) {
+                    $0.frame(maxWidth: .infinity, alignment: .leading)
+                }
+        }
+
+        _ = button
+    }
 }
 #endif
