@@ -1,2 +1,62 @@
-# swift-conditionals
-A strongly typed conditional pattern for Swift values and SwiftUI views.
+# Conditionals
+
+`Conditionals` is a Swift Package for expressing platform, SDK, and extension checks as typed, composable conditions. Use the same conditions to lazily select Swift values and transform SwiftUI content.
+
+<p align="center">
+  <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-6.0+-F05138?logo=swift&logoColor=white" alt="Swift 6.0+"></a>
+  <a href="https://developer.apple.com/ios/"><img src="https://img.shields.io/badge/iOS-13.0+-CAFC63?logo=apple" alt="iOS 13.0+"></a>
+  <a href="https://developer.apple.com/macos/"><img src="https://img.shields.io/badge/macOS-10.15+-CAFC63?logo=apple" alt="macOS 10.15+"></a>
+  <a href="https://developer.apple.com/tvos/"><img src="https://img.shields.io/badge/tvOS-13.0+-CAFC63?logo=apple" alt="tvOS 13.0+"></a>
+  <a href="https://developer.apple.com/watchos/"><img src="https://img.shields.io/badge/watchOS-6.0+-CAFC63?logo=apple" alt="watchOS 6.0+"></a>
+  <a href="https://developer.apple.com/visionos/"><img src="https://img.shields.io/badge/visionOS-1.0+-CAFC63?logo=apple" alt="visionOS 1.0+"></a>
+</p>
+
+## Why
+
+- Typed conditions instead of unstructured Boolean flags.
+- Lazy branch evaluation: only the selected branch runs.
+- Composable checks with `allOf`, `anyOf`, and `not`.
+- A Swift-only core target; SwiftUI support is optional.
+
+## Swift
+
+```swift
+import Conditionals
+
+let buttonTitle = String.value(
+    .allOf(.iOS26, .not(.iPad)),
+    "Continue",
+    else: "Open"
+)
+```
+
+## SwiftUI
+
+```swift
+import ConditionalsSwiftUI
+
+Button {
+    // action
+} label: {
+    Label("Continue", systemImage: "arrow.right")
+        .conditional(.not(.wwdc25)) {
+            $0.frame(maxWidth: .infinity, alignment: .leading)
+        }
+}
+```
+
+## What You Can Check
+
+- Platforms, OS versions, and WWDC SDK baselines.
+- Device idioms and app-extension points.
+- Combinations of conditions with `allOf`, `anyOf`, and `not`.
+- SwiftUI views, builders, and concrete value types.
+
+## Installation
+
+```swift
+.package(url: "https://github.com/inekipelov/swift-conditionals.git", from: "0.1.0")
+```
+
+## See also
+* [Aeastr/Conditionals](https://github.com/Aeastr/Conditionals)
