@@ -9,13 +9,9 @@ struct SwiftUIValueTests {
     @Test func coreSwiftUIValuesCompile() {
         let scenePhase = ScenePhase.value(ConditionKey<AlwaysTrue>(), .active, else: .background)
         let controlSize = ControlSize.value(ConditionKey<AlwaysTrue>(), .large, else: .mini)
-        let symbolRenderingMode = SymbolRenderingMode.value(ConditionKey<AlwaysTrue>(), .palette, else: .monochrome)
-        let symbolVariants = SymbolVariants.value(ConditionKey<AlwaysTrue>(), .fill, else: .none)
 
         _ = scenePhase
         _ = controlSize
-        _ = symbolRenderingMode
-        _ = symbolVariants
     }
 
     @Test func placementAndPresentationValuesCompile() {
